@@ -34,7 +34,6 @@ public class UserServiceImpl implements UserService {
      * data - > {
      * 	"user": "1123", --登陆号
      * 	"password": "1234",  --密码
-     * 	"type": "1"  -类型 1：手机号、2：邮箱、3：用户名
      * }
      * @return
      */
@@ -53,7 +52,8 @@ public class UserServiceImpl implements UserService {
         //获取用户
         List<User> users =null;
         try {
-            users= userMapper.getUsersByCodeAndPassWord(user,password,type);
+            //请求获取用户
+            users= userMapper.getUsersByCodeAndPassWord(user,password);
             if ( users != null && users.size()>0){//获取到用户
                 resonjson.put(ConstantObj.RESPONSE_DATA_JSON_CODE_KEY,ConstantObj.SUCCESS_CODE);//程序异常
                 resonjson.put(ConstantObj.RESPONSE_DATA_JSON_MESSAGE_KEY,ConstantObj.LOGIN_SUCCESS_MESSAGE);

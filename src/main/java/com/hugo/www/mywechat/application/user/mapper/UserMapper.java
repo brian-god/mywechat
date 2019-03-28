@@ -15,12 +15,14 @@ import java.util.List;
 @Mapper
 public interface UserMapper {
     /**
-     * 根据账号查询
+     *
+     * @param username --用户名
+     * @param password --密码
      * @return
      * @throws Exception
      */
     @SelectProvider(type = UserDaoProvider.class,method = "longVerification")
-    List<User> getUsersByCodeAndPassWord(String username, String password, String type) throws  Exception;
+    List<User> getUsersByCodeAndPassWord(String username, String password) throws  Exception;
 
     /**
      * 获取所有用户
