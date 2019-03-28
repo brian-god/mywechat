@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService {
             if ( users != null && users.size()>0){//获取到用户
                 resonjson.put(ConstantObj.RESPONSE_DATA_JSON_CODE_KEY,ConstantObj.SUCCESS_CODE);//程序异常
                 resonjson.put(ConstantObj.RESPONSE_DATA_JSON_MESSAGE_KEY,ConstantObj.LOGIN_SUCCESS_MESSAGE);
-                resonjson.put(ConstantObj.RESPONSE_DATA_JSON_DATA_KEY, JSON.toJSONString(users.get(0)));//数据
+                resonjson.put(ConstantObj.RESPONSE_DATA_JSON_DATA_KEY, users.get(0));//数据
             }else {//未获取到用户
                 resonjson.put(ConstantObj.RESPONSE_DATA_JSON_CODE_KEY,ConstantObj.FAIL_CODE);//程序异常
                 resonjson.put(ConstantObj.RESPONSE_DATA_JSON_MESSAGE_KEY,ConstantObj.LOGIN_FAIL_MESSAGE_NULL);
