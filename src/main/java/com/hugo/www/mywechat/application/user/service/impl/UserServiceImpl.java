@@ -44,11 +44,9 @@ public class UserServiceImpl implements UserService {
         // 字符串转json对象
         JSONObject  jsonObject =  JSONObject.parseObject(data);
         //获取登陆验证
-        String user = jsonObject.getString("user");
+        String user = jsonObject.getString("username");
         //获取密码
         String password = jsonObject.getString("password");
-        //获取登陆类型
-        String type = jsonObject.getString("type");
         //获取用户
         List<User> users =null;
         try {
