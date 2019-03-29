@@ -28,7 +28,6 @@ public class UserController {
     @PostMapping("/login")
     @ResponseBody
     public  String Login( @RequestBody String data){
-        //测试提交1111
         return  userService.UserVerification(data,null,null,null);
     }
 }
