@@ -12,7 +12,7 @@ import java.util.List;
  * @CreateDate: 2019/3/28$ 21:51$
  * @Version: 1.0
  */
-public class WxNetworkObject {
+public class WxResult {
     // 定义jackson对象
     private static final ObjectMapper MAPPER = new ObjectMapper();
 
@@ -23,33 +23,33 @@ public class WxNetworkObject {
     // 响应中的数据
     private Object data;
 
-    public static WxNetworkObject build(Integer status, String msg, Object data) {
-        return new WxNetworkObject(status, msg, data);
+    public static WxResult build(Integer status, String msg, Object data) {
+        return new WxResult(status, msg, data);
     }
 
-    public static WxNetworkObject ok(Object data) {
-        return new WxNetworkObject(data);
+    public static WxResult ok(Object data) {
+        return new WxResult(data);
     }
 
-    public static WxNetworkObject ok() {
-        return new WxNetworkObject(null);
+    public static WxResult ok() {
+        return new WxResult(null);
     }
 
-    public WxNetworkObject() {
+    public WxResult() {
 
     }
 
-    public static WxNetworkObject build(Integer status, String msg) {
-        return new WxNetworkObject(status, msg, null);
+    public static WxResult build(Integer status, String msg) {
+        return new WxResult(status, msg, null);
     }
 
-    public WxNetworkObject(Integer status, String msg, Object data) {
+    public WxResult(Integer status, String msg, Object data) {
         this.status = status;
         this.msg = msg;
         this.data = data;
     }
 
-    public WxNetworkObject(Object data) {
+    public WxResult(Object data) {
         this.status = 200;
         this.msg = "OK";
         this.data = data;
@@ -89,10 +89,10 @@ public class WxNetworkObject {
      * @param clazz TaotaoResult中的object类型
      * @return
      */
-    public static WxNetworkObject formatToPojo(String jsonData, Class<?> clazz) {
+    public static WxResult formatToPojo(String jsonData, Class<?> clazz) {
         try {
             if (clazz == null) {
-                return MAPPER.readValue(jsonData, WxNetworkObject.class);
+                return MAPPER.readValue(jsonData, WxResult.class);
             }
             JsonNode jsonNode = MAPPER.readTree(jsonData);
             JsonNode data = jsonNode.get("data");
@@ -116,9 +116,9 @@ public class WxNetworkObject {
      * @param json
      * @return
      */
-    public static WxNetworkObject format(String json) {
+    public static WxResult format(String json) {
         try {
-            return MAPPER.readValue(json, WxNetworkObject.class);
+            return MAPPER.readValue(json, WxResult.class);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -132,7 +132,7 @@ public class WxNetworkObject {
      * @param clazz 集合中的类型
      * @return
      */
-    public static WxNetworkObject formatToList(String jsonData, Class<?> clazz) {
+    public static WxResult formatToList(String jsonData, Class<?> clazz) {
         try {
             JsonNode jsonNode = MAPPER.readTree(jsonData);
             JsonNode data = jsonNode.get("data");
