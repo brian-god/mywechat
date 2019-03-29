@@ -1,7 +1,13 @@
 package com.hugo.www.mywechat.application.user.controller;
 
+import com.alibaba.fastjson.JSONObject;
 import com.hugo.www.mywechat.application.user.service.impl.UserServiceImpl;
+import com.hugo.www.mywechat.utils.JsonUtils;
+import com.hugo.www.mywechat.utils.WxResult;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -17,6 +23,8 @@ import org.springframework.web.bind.annotation.RestController;
  */
 @RestController
 public class UserController {
+    private static Logger log = LogManager.getLogger(UserController.class);
+
     @Autowired
     private UserServiceImpl userService;
 
@@ -27,7 +35,29 @@ public class UserController {
      */
     @PostMapping("/login")
     @ResponseBody
-    public  String Login( @RequestBody String data){
-        return  userService.UserVerification(data,null,null,null);
+    public WxResult Login(@RequestBody String data){
+        // 字符串转json对象
+        JSONObject jsonObject = JSONObject.parseObject(data);
+        //获取登陆验证
+        String username = jsonObject.getString("username");
+        //获取密码
+        String password = jsonObject.getString("password");
+        if(StringUtils.isEmpty(username)){
+            return WxResult.build(400,"请输入账号");
+        }else if(StringUtils.isEmpty(password)){
+            return WxResult.build(400,"请输入密码");
+        }
+        WxResult result = userService.UserVerification(username, password, null, null, null);
+        if (result != null && result.getStatus()==200 && result.getData()!=null) {
+            log.info("返回的数据为："+ JsonUtils.objectToJson(result.getData()));
+            return result;
+        }
+        return  result.build(400,"请检查账号密码是否正确!");
+    }
+
+    @PostMapping("/getAllUser")
+    @ResponseBody
+    public WxResult GetAllUser(){
+        return  userService.GetAllUser();
     }
 }

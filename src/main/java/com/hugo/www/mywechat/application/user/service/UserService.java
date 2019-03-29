@@ -1,5 +1,7 @@
 package com.hugo.www.mywechat.application.user.service;
 
+import com.hugo.www.mywechat.utils.WxResult;
+
 /**
  * 用户服务接口
  */
@@ -12,6 +14,8 @@ public interface UserService {
      * @param pramr3 --备用参数3
      * @return
      */
-    String UserVerification(String data,Object pramr1,Object pramr2,Object pramr3);
+    WxResult UserVerification(String username, String password, Object pramr1, Object pramr2, Object pramr3);
+
+    WxResult GetAllUser();
 }
 
