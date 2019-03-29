@@ -53,7 +53,7 @@ public class UserServiceImpl implements UserService {
             //请求获取用户
             users = userMapper.getUsersByCodeAndPassWord(username, password);
             if (users == null && users.size() < 0) {
-                return WxResult.build(400,"登录失败");
+                return WxResult.build(400,"用户名或密码错误");
             }
         } catch (Exception e) {
             e.printStackTrace();
