@@ -16,6 +16,8 @@ public interface UserService {
      */
     WxResult UserVerification(String username, String password, Object pramr1, Object pramr2, Object pramr3);
 
-    WxResult GetAllUser();
+    WxResult getAllUser(int page,int rows);
+
+    WxResult addUser();
 }
 
