@@ -11,6 +11,7 @@ import org.springframework.web.socket.server.standard.ServerEndpointExporter;
  * @CreateDate: 2019/3/23$ 10:02$
  * @Version: 1.0
  */
+
 @Configuration
 public class WebSocketConfig {
     @Bean
