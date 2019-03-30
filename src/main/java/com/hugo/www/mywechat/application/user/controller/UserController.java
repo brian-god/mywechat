@@ -8,10 +8,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * 用户控制类
@@ -55,9 +52,19 @@ public class UserController {
         return  result.build(400,"请检查账号密码是否正确!");
     }
 
-    @PostMapping("/getAllUser")
+    @GetMapping("/getAllUser")
     @ResponseBody
-    public WxResult GetAllUser(){
-        return  userService.GetAllUser();
+    public WxResult getAllUser(@RequestParam(value="page", defaultValue="1") int page,
+                               @RequestParam(value="rows", defaultValue="10") int rows){
+        return  userService.getAllUser(page,rows);
+    }
+
+    @GetMapping("/addUser")
+    @ResponseBody
+    public WxResult addUser(@RequestBody String data){
+        JSONObject jsonObject = JSONObject.parseObject(data);
+        String username = jsonObject.getString("username");
+        String password = jsonObject.getString("password");
+        return  null;
     }
 }

@@ -1,5 +1,7 @@
 package com.hugo.www.mywechat.application.user.service.impl;
 
+import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.hugo.www.mywechat.application.user.entity.User;
 import com.hugo.www.mywechat.application.user.mapper.UserMapper;
 import com.hugo.www.mywechat.application.user.service.UserService;
@@ -63,11 +65,18 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public WxResult GetAllUser() {
+    public WxResult getAllUser(int page,int rows) {
+        PageHelper.startPage(page, rows);
         List<User> allUser = userMapper.getAllUser();
         if (allUser.size() > 0 && allUser !=null){
-            return WxResult.build(200,"查询成功",allUser);
+            PageInfo<User> pageInfo = new PageInfo<>(allUser);
+            return WxResult.build(200,"查询成功",pageInfo);
         }
+        return WxResult.build(400,"未查到用户信息");
+    }
+
+    @Override
+    public WxResult addUser() {
         return WxResult.build(400,"未查到用户信息");
     }
 }
