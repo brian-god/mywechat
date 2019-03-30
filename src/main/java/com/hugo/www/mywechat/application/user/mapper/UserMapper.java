@@ -4,6 +4,7 @@ package com.hugo.www.mywechat.application.user.mapper;
 import com.hugo.www.mywechat.application.user.entity.User;
 import com.hugo.www.mywechat.application.user.provider.UserDaoProvider;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.apache.ibatis.annotations.SelectProvider;
 
@@ -22,12 +23,12 @@ public interface UserMapper {
      * @throws Exception
      */
     @SelectProvider(type = UserDaoProvider.class,method = "longVerification")
-    List<User> getUsersByCodeAndPassWord(String username, String password) throws  Exception;
+    List<User> getUsersByCodeAndPassWord(@Param("username")String username, @Param("password") String password) throws  Exception;
 
     /**
      * 获取所有用户
      * @return
      */
-    @Select("select * from fa_user")
+    @Select("select * from fa_user where dr=0")
     List<User> getAllUser();
 }
